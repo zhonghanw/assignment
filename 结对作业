@@ -199,8 +199,8 @@ void Sys::save(){
 }
 
 void Sys::load(){
-	=0;
-	(c)流程输出;
+	int j = 0;
+	ifstream outFile;
     outFile.open("ticket.txt");
     while(!outFile.eof())
     {
@@ -209,7 +209,7 @@ void Sys::load(){
         j++;
     }
     outFile.close();
-    (c)文件;
+    ifstream xFile;
     xFile.open ("number.txt");
     xFile>>n;
     xFile.close();
@@ -237,57 +237,57 @@ void Sys::menu()       //菜单界面
         cout<<"                    ▏                            ▕"<<endl;
         cout<<"                    ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔"<<endl;
 		cout<<"                    请输入您的选择：";
-		拘留所和拘留所;
+		cin >> t;
         system("cls");
-        开关(T)
+        switch (t)
         {
         case 0:
         	cout<<"\n                           欢迎再次使用.";
             exit(0);
-            中断;
+            break;
         case 1:
         	showFlight();
         	system("pause");
-            中断;
+            break;
         case 2:
         	showPass();
         	system("pause");
-            中断;
+            break;
         case 3:
         	findFlight();
         	system("pause");
-            中断;
+            break;
         case 4:
         	 addTicket();
-			 中断；
+			 break;
 		case 5:
 			delTicket();
 			system("pause");
-			中断；
+			break;
 		case 6:
 			save();
 			system("pause");
-			中断；
+			break;
 		case 7:
 			load();
 			system("pause");
-			中断；
+			break;
 		case 8:
 			showTicket();
 			system("pause");
-			中断；
-        违约:
-			cout << "输入的选项不正确！​​" << endl;
+			break;
+        default:
+			cout << "输入的选项不正确！" << endl;
 			system("pause");
-            中断;
+            break;
         }
 	}
 }
 
 
 
- INT主() {
-	系统；
+int main(){
+	Sys s;
 	s.menu();
-	返回0；
+	return 0;
 }
