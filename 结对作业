@@ -1,0 +1,293 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int n = 0;	//订票个数 
+
+class Flight{
+public:
+	string terminal;//终点站名 
+	int flightId;	//航班号 
+	int airType;	//飞机型号 
+	int passNum;	//乘客定额 
+	int remain;		//余票 
+};
+
+class Pass{
+public:
+	string name;	//姓名 
+	string idCard;	//身份证号码 
+	int tickNum;	//订票量 
+	int level;		//舱位等级 
+}; 
+
+class Ticket{
+public:
+	string name;	//姓名 
+	string idCard;	//身份证号码 
+	int tickNum;	//订票量 
+	int level;		//舱位等级 
+	string terminal;//终点站名 
+	int flightId;	//航班号 
+	int airType;	//飞机型号 
+	int passNum;	//乘客定额 
+	int remain;		//余票 
+};
+
+class Sys{
+private:
+	Flight flight[5];
+	Pass pass[3];
+	Ticket ticket[100];
+	int t, t1, t2;
+	string name;
+
+public:
+	void menu();
+	void init();
+	void showFlight();
+	void showPass();
+	void showTicket();
+	void findFlight();
+	void addTicket();
+	void delTicket();
+	void save();
+	void load();
+}; 
+
+void Sys::init(){
+	flight[0].terminal = "沈阳";
+	flight[0].flightId = 1;
+	flight[0].airType = 1;
+	flight[0].passNum = 50;
+	flight[0].remain = 40;
+	flight[1].terminal = "西安";
+	flight[1].flightId = 2;
+	flight[1].airType = 2;
+	flight[1].passNum = 70;
+	flight[1].remain = 20;
+	flight[2].terminal = "北京";
+	flight[2].flightId = 3;
+	flight[2].airType = 3;
+	flight[2].passNum = 70;
+	flight[2].remain = 20;
+	flight[3].terminal = "青岛";
+	flight[3].flightId = 4;
+	flight[3].airType = 4;
+	flight[3].passNum = 60;
+	flight[3].remain = 10;
+	flight[4].terminal = "兰州";
+	flight[4].flightId = 5;
+	flight[4].airType = 5;
+	flight[4].passNum = 40;
+	flight[4].remain = 30;
+	pass[0].name = "张三";
+	pass[0].idCard = "370211200006360083";
+	pass[0].tickNum = 1;
+	pass[0].level = 3;
+	pass[1].name = "李四";
+	pass[1].idCard = "370211200006360088";
+	pass[1].tickNum = 2;
+	pass[1].level = 1;
+	pass[2].name = "王五";
+	pass[2].idCard = "370211200006360099";
+	pass[2].tickNum = 3;
+	pass[2].level = 2;
+}
+
+void Sys::showFlight(){
+	for(int i=0;i<5;i++){
+		cout << i << "\t" << "终点站名：" << flight[i].terminal <<"\t" <<
+		"航班号：" << flight[i].flightId << "\t" << 
+		"飞机型号：" << flight[i].airType << "\t" << 
+		"乘客定额：" << flight[i].passNum << 
+		"余票：" << flight[i].remain << endl;
+	}
+}
+
+void Sys::showPass(){
+	for(int i=0;i<3;i++){
+		cout << i << "\t"  << "姓名：" << pass[i].name <<"\t" <<
+		"身份证号码：" << pass[i].idCard << "\t" << 
+		"订票量：" << pass[i].tickNum << "\t" << 
+		"舱位等级：" << pass[i].level << endl;
+	}
+}
+
+void Sys::findFlight()		  
+{
+    cout<<"请输入终点站名：";
+    cin>>name;
+    for(int i = 0;i<5;i++)
+    {
+        if(name == flight[i].terminal)
+        {
+            cout<<"您所查询的终点站名为："<<flight[i].terminal<<endl;
+            cout<<"您所查询的航班号为："<<flight[i].flightId<<endl;
+            cout<<"您所查询的飞机型号为："<<flight[i].airType<<endl;
+            cout<<"您所查询的乘客定额为："<<flight[i].passNum<<endl;
+            cout<<"您所查询的余票为："<<flight[i].remain<<endl;
+        }
+    }
+}
+
+void Sys::addTicket(){
+	showFlight();
+	cout << "请选择您要预订的航班序号：";
+	cin >> t1;
+	showPass();
+	cout << "请选择乘客信息：";
+	cin >> t2;
+	ticket[n].name = pass[t2].name;
+	ticket[n].idCard = pass[t2].idCard;
+	ticket[n].tickNum = pass[t2].tickNum;
+	ticket[n].level = pass[t2].level;
+	ticket[n].terminal = flight[t1].terminal;
+	ticket[n].flightId = flight[t1].flightId;
+	ticket[n].airType = flight[t1].airType;
+	ticket[n].passNum = flight[t1].passNum;
+	ticket[n].remain = flight[t1].remain;
+	n++;
+}
+
+void Sys::showTicket(){
+	for(int i = 0;i<n;i++){
+		cout << i << endl;
+		cout << "终点站名：" << ticket[i].terminal <<"\t" <<
+		"航班号：" << ticket[i].flightId << "\t" << 
+		"飞机型号：" << ticket[i].airType << "\t" << 
+		"乘客定额：" << ticket[i].passNum << 
+		"余票：" << ticket[i].remain << endl;
+		cout << "姓名：" << ticket[i].name <<"\t" <<
+		"身份证号码：" << ticket[i].idCard << "\t" << 
+		"订票量：" << ticket[i].tickNum << "\t" << 
+		"舱位等级：" << ticket[i].level << endl;
+	}
+}
+
+void Sys::delTicket(){
+	showTicket();
+	cout << "请输入您要退的航班号：";
+	cin >> t1;
+	for(int i = 0;i<n;i++)
+    {
+        if(t1 == ticket[i].flightId)
+        {
+            for(int k = i;k<=n;k++)
+            {
+                ticket[k] = ticket[k+1];
+            }
+            n--;
+        }
+    }
+}
+
+void Sys::save(){
+	ofstream inputFile;
+    inputFile.open("ticket.txt");
+    for(int i = 0;i<n;i++)
+    {
+        inputFile << ticket[i].terminal << "\t" << ticket[i].flightId << "\t"<<ticket[i].airType<<"\t"<<ticket[i].passNum<<"\t"<<ticket[i].remain
+		<<"\t"<<ticket[i].name<<"\t"<<ticket[i].idCard<<"\t"<<ticket[i].tickNum<<"\t"<<ticket[i].level<<endl;
+    }
+    inputFile.close();
+    
+    ofstream zFile;
+    zFile.open("number.txt");
+    zFile << n;
+    zFile.close();
+}
+
+void Sys::load(){
+	=0;
+	(c)流程输出;
+    outFile.open("ticket.txt");
+    while(!outFile.eof())
+    {
+        outFile>>ticket[j].terminal>>ticket[j].flightId>>ticket[j].airType>>ticket[j].passNum>>ticket[j].remain
+		>>ticket[j].name>>ticket[j].idCard>>ticket[j].tickNum>>ticket[j].level;
+        j++;
+    }
+    outFile.close();
+    (c)文件;
+    xFile.open ("number.txt");
+    xFile>>n;
+    xFile.close();
+}
+
+void Sys::menu()       //菜单界面
+{
+	init();
+    while(1)
+	{
+        system("cls");
+        cout<<"\n\n\n\n\n";
+        cout<<"                   航  空  客  运  订  票  软  件 "<<endl;
+        cout<<"                    ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"<<endl;
+        cout<<"                    ▏                            ▕"<<endl;
+        cout<<"                    ▏        1.航班信息          ▕"<<endl;
+        cout<<"                    ▏        2.乘客信息          ▕"<<endl;
+        cout<<"                    ▏        3.查询航班          ▕"<<endl;
+        cout<<"                    ▏        4.订票业务          ▕"<<endl;
+        cout<<"                    ▏        5.退票业务          ▕"<<endl;
+        cout<<"                    ▏        6.写入文件          ▕"<<endl;
+        cout<<"                    ▏        7.读取文件          ▕"<<endl;
+    	cout<<"                    ▏        8.订票信息          ▕"<<endl;
+        cout<<"                    ▏        0.退出登录          ▕"<<endl;
+        cout<<"                    ▏                            ▕"<<endl;
+        cout<<"                    ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔"<<endl;
+		cout<<"                    请输入您的选择：";
+		拘留所和拘留所;
+        system("cls");
+        开关(T)
+        {
+        case 0:
+        	cout<<"\n                           欢迎再次使用.";
+            exit(0);
+            中断;
+        case 1:
+        	showFlight();
+        	system("pause");
+            中断;
+        case 2:
+        	showPass();
+        	system("pause");
+            中断;
+        case 3:
+        	findFlight();
+        	system("pause");
+            中断;
+        case 4:
+        	 addTicket();
+			 中断；
+		case 5:
+			delTicket();
+			system("pause");
+			中断；
+		case 6:
+			save();
+			system("pause");
+			中断；
+		case 7:
+			load();
+			system("pause");
+			中断；
+		case 8:
+			showTicket();
+			system("pause");
+			中断；
+        违约:
+			cout << "输入的选项不正确！​​" << endl;
+			system("pause");
+            中断;
+        }
+	}
+}
+
+
+
+ INT主() {
+	系统；
+	s.menu();
+	返回0；
+}
